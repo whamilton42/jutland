@@ -5,13 +5,13 @@
 (defn- file [folder name]
   (str folder "/" name))
 
-(defn- run [file]
-  (sh "sh" "-c" file))
+(defn- run [file opts]
+  (sh "sh" "-c" (str file " " opts)))
 
-(defn- output_of_run [file]
-  (:out (run file)))
+(defn- output_of_run [file opts]
+  (:out (run file opts)))
 
 
-(defn call [folder name]
-  (output_of_run (file folder name))
+(defn call [folder name opts]
+  (output_of_run (file folder name) opts)
 )

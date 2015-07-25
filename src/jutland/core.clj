@@ -18,7 +18,17 @@
       (println banner)
       (System/exit 1))
 
-    (println (program_runner/call (:folder opts) (:program-one opts)))
+    (let [[grid_one grid_two]
+        [
+          (program_runner/call (:folder opts) (:program-one opts) "--command=grid")
+          (program_runner/call (:folder opts) (:program-two opts) "--command=grid")
+        ]
+      ]
+
+      (println grid_one)
+      (println grid_two)
+    )
+
     (shutdown-agents)
   )
 )
