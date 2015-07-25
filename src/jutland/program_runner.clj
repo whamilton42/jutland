@@ -13,7 +13,5 @@
 
 
 (defn call [folder name]
-  (let [[file] [(file folder name)]]
-    (output_of_run file)
-  )
+  (output_of_run (file folder name))
 )
