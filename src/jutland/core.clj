@@ -1,6 +1,7 @@
 (ns jutland.core
   (:require [jutland.program_runner :as program_runner])
   (:require [jutland.opts_parser :as opts_parser])
+  (:require [jutland.grid_valid :as grid_valid])
   (require [clojure.tools.cli :refer [cli]])
   (:gen-class))
 
@@ -26,7 +27,10 @@
       ]
 
       (println grid_one)
+      (println (grid_valid/call grid_one))
+
       (println grid_two)
+      (println (grid_valid/call grid_two))
     )
 
     (shutdown-agents)
