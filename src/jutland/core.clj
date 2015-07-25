@@ -1,7 +1,16 @@
 (ns jutland.core
+  (:require [jutland.program_runner :as program_runner])
   (:gen-class))
 
+(def program_names
+  [
+    (System/getenv "PROGRAM_1")
+    (System/getenv "PROGRAM_2")
+  ])
+
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Runs battles between two Battleship binaries."
   [& args]
-  (println "Hello, World!"))
+  (println (program_runner/call (first program_names)))
+  (shutdown-agents)
+)
