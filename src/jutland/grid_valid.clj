@@ -1,16 +1,13 @@
 (ns jutland.grid_valid)
 
 (defn- squares [grid]
-  (count grid)
-)
+  (count grid))
 
 (defn- ship-squares [grid]
-  (count (re-seq #"x" grid))
-)
+  (count (re-seq #"x" grid)))
 
 (defn- empty-squares [grid]
-  (count (re-seq #" " grid))
-)
+  (count (re-seq #" " grid)))
 
 
 (defn call [grid]
