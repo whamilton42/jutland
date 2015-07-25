@@ -2,4 +2,4 @@
 Run battleship programs against each other
 
 ## TODO
-- [ ] better environment variable handling
+- [x] better environment variable handling

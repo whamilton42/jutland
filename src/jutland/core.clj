@@ -1,16 +1,24 @@
 (ns jutland.core
   (:require [jutland.program_runner :as program_runner])
+  (:require [jutland.opts_parser :as opts_parser])
+  (require [clojure.tools.cli :refer [cli]])
   (:gen-class))
 
-(def program_names
-  [
-    (System/getenv "PROGRAM_1")
-    (System/getenv "PROGRAM_2")
-  ])
-
 (defn -main
-  "Runs battles between two Battleship binaries."
+  "Runs battles between two Battleship programs."
   [& args]
-  (println (program_runner/call (first program_names)))
-  (shutdown-agents)
+  (let
+    [[opts args banner] (cli args
+      ["-p1" "--program-one" "First program to battle with"]
+      ["-p2" "--program-two" "Second program to battle with"]
+      ["-f" "--folder" "Folder where programs reside"]
+    )]
+
+    (when (opts_parser/missing-required? opts)
+      (println banner)
+      (System/exit 1))
+
+    (println (program_runner/call (:folder opts) (:program-one opts)))
+    (shutdown-agents)
+  )
 )

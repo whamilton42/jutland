@@ -1,16 +1,19 @@
 (ns jutland.program_runner
   (use [clojure.java.shell :only [sh]])
-  (:gen-class))
+)
 
-(defn- program_file [name]
-  (str (System/getenv "BATTLESHIP_PROGRAMS_FOLDER") name))
+(defn- file [folder name]
+  (str folder "/" name))
 
-(defn- run_program [name]
-  (sh "sh" "-c" (program_file name)))
+(defn- run [file]
+  (sh "sh" "-c" file))
 
-(defn- run_program_and_capture_output [name]
-  (:out (run_program name)))
+(defn- output_of_run [file]
+  (:out (run file)))
 
 
-(defn call [name]
-  (run_program_and_capture_output name))
+(defn call [folder name]
+  (let [[file] [(file folder name)]]
+    (output_of_run file)
+  )
+)
