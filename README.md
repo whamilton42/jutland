@@ -37,6 +37,7 @@ e.g.: (Replace `_` with a space) `_D__BBBB___D_________DC_________C___P_____C___
 
 ## TODO
 - [x] better environment variable handling
+- [ ] announce result of shot to program
 - [ ] stop passing opts around everywhere
 - [ ] think about program state
 - [ ] black graphics
