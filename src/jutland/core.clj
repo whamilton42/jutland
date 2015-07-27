@@ -11,6 +11,20 @@
   )
 )
 
+(defn- get-grid [opts program]
+  (println (str "Fetching " program " grid.."))
+  (let [[grid] [(program_runner/call (:folder opts) (program opts) "grid")]]
+    (print-grid grid)
+    (println
+      (if (grid_valid/call grid)
+        "valid!"
+        "invalid!"
+      )
+    )
+    grid
+  )
+)
+
 (defn -main
   "Runs battles between two Battleship programs."
   [& args]
@@ -27,16 +41,10 @@
 
     (let [[grid_one grid_two]
         [
-          (program_runner/call (:folder opts) (:program-one opts) "grid")
-          (program_runner/call (:folder opts) (:program-two opts) "grid")
+          (get-grid opts :program-one)
+          (get-grid opts :program-two)
         ]
       ]
-
-      (print-grid grid_one)
-      (println (grid_valid/call grid_one))
-
-      (print-grid grid_two)
-      (println (grid_valid/call grid_two))
     )
 
     (shutdown-agents)

@@ -6,7 +6,6 @@
   (str folder "/" name))
 
 (defn- run [program script]
-  (println (str program " bin/" script))
   (sh "sh" "-c" (str program "/bin/" script)))
 
 (defn- output_of_run [program script]
