@@ -39,34 +39,32 @@
   )
 )
 
+(defn- grids [opts]
+  {
+    :program-one (get-grid opts :program-one)
+    :program-two (get-grid opts :program-two)
+  }
+)
 
 (defn call [opts]
-  (let [[grids]
-        [{
-          :program-one (get-grid opts :program-one)
-          :program-two (get-grid opts :program-two)
-        }]
-    ]
+  (loop [[grids        program]
+         [(grids opts) :program-one]]
 
-    (loop [[grids program]
-           [grids :program-one]]
+    (println (str program " takes its turn.."))
 
-      (println (str program " takes its turn.."))
+    (let [[shot] [(get-shot opts program)]]
+      (println (str "Shoot! " shot))
 
-      (let [[shot] [(get-shot opts program)]]
-        (println (str "Shoot! " shot))
+      (let [[new-grid]
+            [(grid_after_shot/call ((opponent program) grids) shot)]]
+        (print-grid new-grid)
 
-        (let [[new-grid]
-              [(grid_after_shot/call ((opponent program) grids) shot)]]
-          (print-grid new-grid)
-
-          (if (game-over? new-grid)
-            (println "yay")
-            (recur [
-              (merge grids {(opponent program) new-grid})
-              (opponent program)
-            ])
-          )
+        (if (game-over? new-grid)
+          (println "yay")
+          (recur [
+            (merge grids {(opponent program) new-grid})
+            (opponent program)
+          ])
         )
       )
     )
