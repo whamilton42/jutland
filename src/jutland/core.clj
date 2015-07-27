@@ -34,6 +34,13 @@
   (boolean (re-find #"[[a-z]\s]{100}" grid))
 )
 
+(defn- opponent [program]
+  (case program
+    :program-one :program-two
+    :program-two :program-one
+  )
+)
+
 (defn -main
   "Runs battles between two Battleship programs."
   [& args]
@@ -48,24 +55,32 @@
       (println banner)
       (System/exit 1))
 
-    (let [[grid-one grid-two]
-        [
-          (get-grid opts :program-one)
-          (get-grid opts :program-two)
-        ]
+    (let [[grids]
+          [{
+            :program-one (get-grid opts :program-one)
+            :program-two (get-grid opts :program-two)
+          }]
       ]
 
-      (loop [[grid     shot]
-             [grid-one (get-shot opts :program-one)]]
+      (loop [[grids program]
+             [grids :program-one]]
 
-        (println (str "Shoot! " shot))
+        (println (str program " takes its turn.."))
 
-        (let [[new-grid] [(grid_after_shot/call grid shot)]]
-          (print-grid new-grid)
+        (let [[shot] [(get-shot opts program)]]
+          (println (str "Shoot! " shot))
 
-          (if (game-over? new-grid)
-            (println "yay")
-            (recur [new-grid (get-shot opts :program-one)])
+          (let [[new-grid]
+                [(grid_after_shot/call ((opponent program) grids) shot)]]
+            (print-grid new-grid)
+
+            (if (game-over? new-grid)
+              (println "yay")
+              (recur [
+                (merge grids {(opponent program) new-grid})
+                (opponent program)
+              ])
+            )
           )
         )
       )
