@@ -19,12 +19,13 @@ Provide 3 executables in the `bin` folder of your program:
 ### Grid
 This executable should print to `stdout` a string representing the grid you wish to submit.
 
-Rules for grid string:
-* 100 characters long (10x10 grid).
-* Precisely one of each ship, noted using upper-case characters (see below).
+How to format your grid string:
+* 100 characters long.
+* Empty squares noted with an empty character.
+* Ships noted using characters below.
 * No newline character at the end.
 
-e.g.: ` D  BBBB   D         DC         C   P     C   P     C   SS    C   S                                 `
+e.g.: (Replace `_` with a space) `_D__BBBB___D_________DC_________C___P_____C___P_____C___SS____C___S_________________________________`
 
 #### Ships
 * C (Aircraft Carrier) = 5 spaces
