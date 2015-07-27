@@ -2,6 +2,7 @@
   (:require [jutland.program_runner :as program_runner])
   (:require [jutland.opts_parser :as opts_parser])
   (:require [jutland.grid_valid :as grid_valid])
+  (:require [jutland.grid_after_shot :as grid_after_shot])
   (require [clojure.tools.cli :refer [cli]])
   (:gen-class))
 
@@ -25,6 +26,14 @@
   )
 )
 
+(defn- get-shot [opts program]
+  (program_runner/call (:folder opts) (program opts) "shoot")
+)
+
+(defn- game-over? [grid]
+  (boolean (re-find #"[[a-z]\s]{100}" grid))
+)
+
 (defn -main
   "Runs battles between two Battleship programs."
   [& args]
@@ -39,12 +48,27 @@
       (println banner)
       (System/exit 1))
 
-    (let [[grid_one grid_two]
+    (let [[grid-one grid-two]
         [
           (get-grid opts :program-one)
           (get-grid opts :program-two)
         ]
       ]
+
+      (loop [[grid     shot]
+             [grid-one (get-shot opts :program-one)]]
+
+        (println (str "Shoot! " shot))
+
+        (let [[new-grid] [(grid_after_shot/call grid shot)]]
+          (print-grid new-grid)
+
+          (if (game-over? new-grid)
+            (println "yay")
+            (recur [new-grid (get-shot opts :program-one)])
+          )
+        )
+      )
     )
 
     (shutdown-agents)
