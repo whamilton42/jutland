@@ -4,17 +4,27 @@
   (:require [jutland.program_runner :as program_runner])
 )
 
-(defn- print-grid [grid]
-  (doseq [row (grid_valid/rows grid)]
-    (println (str "|" row "|"))
+(defn- output [opts string]
+  (if-not (nil? (:quiet opts))
+    (println string)
+  )
+)
+
+(defn- printable-grid [grid]
+  (clojure.string/join
+    "\n"
+    (map
+      (fn [row] (str "|" row "|"))
+      (grid_valid/rows grid)
+    )
   )
 )
 
 (defn- get-grid [opts program]
-  (println (str "Fetching " program " grid.."))
+  (output opts (str "Fetching " program " grid.."))
   (let [[grid] [(program_runner/call (:folder opts) (program opts) "grid")]]
-    (print-grid grid)
-    (println
+    (output opts (printable-grid grid))
+    (output opts
       (if (grid_valid/call grid)
         "valid!"
         "invalid!"
@@ -46,24 +56,26 @@
   }
 )
 
-(defn call [opts]
-  (loop [[grids        program]
-         [(grids opts) :program-one]]
 
-    (println (str program " takes its turn.."))
+(defn call [opts]
+  (loop [[grids        program      turn]
+         [(grids opts) :program-one 1]]
+
+    (output opts (str program " takes its turn.."))
 
     (let [[shot] [(get-shot opts program)]]
-      (println (str "Shoot! " shot))
+      (output opts (str "Shoot! " shot))
 
       (let [[new-grid]
             [(grid_after_shot/call ((opponent program) grids) shot)]]
-        (print-grid new-grid)
+        (output opts (printable-grid new-grid))
 
         (if (game-over? new-grid)
-          (println "yay")
+          (output opts (str "Victory for " program " in " turn " turns!"))
           (recur [
             (merge grids {(opponent program) new-grid})
             (opponent program)
+            (inc turn)
           ])
         )
       )
