@@ -5,7 +5,7 @@
 )
 
 (defn- output [opts string]
-  (if (nil? (:quiet opts))
+  (if-not (:quiet opts)
     (println string)
   )
 )

@@ -12,7 +12,7 @@
       ["-p1" "--program-one" "First program to battle with"]
       ["-p2" "--program-two" "Second program to battle with"]
       ["-f" "--folder" "Folder where programs reside"]
-      ["-q" "--quiet" "Supress output"]
+      ["-q" "--quiet" "Supress output" :default false :flag true]
     )]
 
     (when (opts_parser/missing-required? opts)
