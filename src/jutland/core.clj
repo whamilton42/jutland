@@ -1,7 +1,7 @@
 (ns jutland.core
+  (require [clojure.tools.cli :refer [cli]])
   (:require [jutland.opts_parser :as opts_parser])
   (:require [jutland.run_game :as run_game])
-  (require [clojure.tools.cli :refer [cli]])
   (:gen-class))
 
 (defn -main
