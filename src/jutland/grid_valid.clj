@@ -23,8 +23,9 @@
 
 
 (defn rows [grid]
-  (map clojure.string/join
-    (partition 10 grid)))
+  (into []
+    (map clojure.string/join
+      (partition 10 grid))))
 
 (defn columns [grid]
   (map

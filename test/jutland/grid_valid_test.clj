@@ -2,6 +2,15 @@
   (:require [clojure.test :refer :all]
             [jutland.grid_valid :refer :all]))
 
+(deftest test-rows
+  (testing "rows"
+    (let [[grid] ["C         C         "]]
+      (is (= (jutland.grid_valid/rows grid) ["C         " "C         "]))
+      (is (= (get (jutland.grid_valid/rows grid) 0) "C         "))
+    )
+  )
+)
+
 (deftest test-columns
   (testing "columns"
     (let [[grid] ["C         C         C         C         C                                                           "]]
