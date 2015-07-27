@@ -2,16 +2,17 @@
   (use [clojure.java.shell :only [sh]])
 )
 
-(defn- file [folder name]
+(defn- program [folder name]
   (str folder "/" name))
 
-(defn- run [file opts]
-  (sh "sh" "-c" (str file " " opts)))
+(defn- run [program script]
+  (println (str program " bin/" script))
+  (sh "sh" "-c" (str program "/bin/" script)))
 
-(defn- output_of_run [file opts]
-  (:out (run file opts)))
+(defn- output_of_run [program script]
+  (:out (run program script)))
 
 
-(defn call [folder name opts]
-  (output_of_run (file folder name) opts)
+(defn call [folder name script]
+  (output_of_run (program folder name) script)
 )

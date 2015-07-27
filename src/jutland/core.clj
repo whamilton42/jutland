@@ -27,8 +27,8 @@
 
     (let [[grid_one grid_two]
         [
-          (program_runner/call (:folder opts) (:program-one opts) "--command=grid")
-          (program_runner/call (:folder opts) (:program-two opts) "--command=grid")
+          (program_runner/call (:folder opts) (:program-one opts) "grid")
+          (program_runner/call (:folder opts) (:program-two opts) "grid")
         ]
       ]
 
