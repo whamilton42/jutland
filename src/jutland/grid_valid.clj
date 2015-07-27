@@ -22,7 +22,7 @@
   (count (re-seq #" " grid)))
 
 
-(defn- rows [grid]
+(defn rows [grid]
   (map clojure.string/join
     (partition 10 grid)))
 

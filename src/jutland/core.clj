@@ -5,6 +5,12 @@
   (require [clojure.tools.cli :refer [cli]])
   (:gen-class))
 
+(defn- print-grid [grid]
+  (doseq [row (grid_valid/rows grid)]
+    (println (str "|" row "|"))
+  )
+)
+
 (defn -main
   "Runs battles between two Battleship programs."
   [& args]
@@ -26,10 +32,10 @@
         ]
       ]
 
-      (println grid_one)
+      (print-grid grid_one)
       (println (grid_valid/call grid_one))
 
-      (println grid_two)
+      (print-grid grid_two)
       (println (grid_valid/call grid_two))
     )
 
