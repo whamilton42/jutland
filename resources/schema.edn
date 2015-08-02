@@ -1,0 +1,44 @@
+[
+ ;; game
+  {
+    :db/id #db/id[:db.part/db]
+    :db/ident :game/program_1_name
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/doc "Name of program one"
+    :db.install/_attribute :db.part/db
+  }
+  {
+    :db/id #db/id[:db.part/db]
+    :db/ident :game/program_1_grid
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/doc "Grid for program one"
+    :db.install/_attribute :db.part/db
+  }
+  {
+    :db/id #db/id[:db.part/db]
+    :db/ident :game/program_2_name
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/doc "Name of program two"
+    :db.install/_attribute :db.part/db
+  }
+  {
+    :db/id #db/id[:db.part/db]
+    :db/ident :game/program_2_grid
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/doc "Grid for program two"
+    :db.install/_attribute :db.part/db
+  }
+  {
+    :db/id #db/id[:db.part/db]
+    :db/ident :game/uuid
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/doc "UUID for game"
+    :db/unique :db.unique/identity
+    :db.install/_attribute :db.part/db
+  }
+ ]
