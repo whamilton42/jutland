@@ -5,7 +5,7 @@
 
 (deftest test-integration
   (testing "the whole thing works"
-    (def new-game-uuid (jutland.create_game/call "Jellico" "Scheer"))
+    (def created-game-uuid (jutland.create_game/call "Jellicoe" "Scheer"))
     ; ? message about new game published
     ; p1 submits grid
     ; p2 submits grid
