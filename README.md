@@ -28,7 +28,14 @@ How to format your grid string:
 * Empty squares noted with an empty character.
 * Ships noted using characters below.
 
-e.g.: (replacing `_` with a space!) `{ "grid": "_D__BBBB___D_________DC_________C___P_____C___P_____C___SS____C___S_________________________________" }`
+e.g.: (replacing `_` with a space!)
+
+```json
+{
+  "program": "jellicoe"
+  "grid": "_D__BBBB___D_________DC_________C___P_____C___P_____C___SS____C___S_________________________________"
+}
+```
 
 #### Ships
 * C (Aircraft Carrier) = 5 spaces
