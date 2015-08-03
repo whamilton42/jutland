@@ -9,27 +9,27 @@
 (def uri "datomic:free://localhost:4334/jutland")
 (def conn (datomic/connect uri))
 
-(defn- grid-field-to-update [game-uuid program-name]
-  (let [[game] [(jutland.game_repository/find-by-uuid game-uuid)]]
-    (if (= (:game/program_1_name game) program-name)
-      :game/program_1_grid
-      :game/program_2_grid
-    )
+(defn- grid-field-to-update [game program-name]
+  (if (= (:game/program_1_name game) program-name)
+    :game/program_1_grid
+    :game/program_2_grid
   )
 )
 
-(defn- save-grid [game-uuid program-name grid]
+(defn- save-grid [game program-name grid]
   @(datomic/transact conn [
     {:db/id #db/id[:db.part/user]
-      :game/uuid game-uuid
-      (grid-field-to-update game-uuid program-name) grid
+      :game/uuid (:game/uuid game)
+      (grid-field-to-update game program-name) grid
     }
   ])
 )
 
 (defn call [game-uuid program-name grid]
   (if (jutland.grid_valid/call grid)
-    (save-grid game-uuid program-name grid)
+    (let [[game] [(jutland.game_repository/find-by-uuid game-uuid)]]
+      (save-grid game program-name grid)
+    )
     false
   )
 )
