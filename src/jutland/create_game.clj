@@ -4,9 +4,7 @@
 
 (def uri "datomic:free://localhost:4334/jutland")
 (def conn (datomic/connect uri))
-
-(defn- uuid [] (datomic/squuid))
-(def game-uuid (str (uuid)))
+(def game-uuid (str (datomic/squuid)))
 
 (defn call [program_1_name program_2_name]
   @(datomic/transact conn [
