@@ -15,7 +15,7 @@
     :uberjar {:aot :all}
     :dev {
       :datomic {
-        :config "~/src/jutland/resources/transactor.properties"
+        :config "resources/transactor.properties"
         :db-uri "datomic:free://127.0.0.1:4334/jutland"
       }
     }
